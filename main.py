@@ -1,6 +1,6 @@
 from tkinter import *
 from random import choices
-import os
+
 
 # ------------------Generate Password Function------------------#
 # ---------------PASSWORD CONSTANTTs-------------------#
@@ -12,14 +12,16 @@ Passwords should contain three of the four character types:
 Uppercase letters: A-Z
 Lowercase letters: a-z
 Numbers: 0-9
-Symbols: ~`!@#$%^&*()_-+={[}]|\:;"'<,>.?/
+Symbols: ~`!@#$%^&*()_-+={[}]|:;"'<,>.?/
 '''
 UPPERCASE = "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z"
 LOWERCASE = "a b c d e f g h i j k l m n o p q r s t u v w x y z"
 UPPERCASE_LIST = list(UPPERCASE.split(" "))
 LOWERCASE_LIST = list(LOWERCASE.split(" "))
 NUMBER_LIST = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-SYMBOLS = '''~`!@#$%^&*()_-+={[}]|\:;"'<,>.?/'''
+SYMBOLS = '''
+~`!@#$%^&*()_-+={[}]|:;"'<,>.?/
+'''
 SYMBOLS_LIST = list(SYMBOLS)
 pass_generated = None
 
@@ -27,7 +29,7 @@ pass_generated = None
 # ----------------ٍSave Data to text file-----------#
 def save_user_registration():
     if len(web_entry.get()) == 0 or len(email_entry.get()) == 0 or len(password_entry.get()) == 0:
-        fill_all_gaps = messagebox.showwarning(title="Attention", message="Please do not leave any gaps empty!!")
+        messagebox.showwarning(title="Attention", message="Please do not leave any gaps empty!!")
     elif len(web_entry.get()) != 0 and len(email_entry.get()) != 0 and len(password_entry.get()) != 0:
         ask_user = messagebox.askyesno(title="Conformation", message="Do you want to save current registration data?")
         if ask_user:
@@ -59,13 +61,13 @@ def generate_password():
 # ------------------ Password Manager GUI ---------------------#
 window = Tk()
 window.title("Password Manager v1.0")
-window.config(padx=50, pady=50)
+window.config(padx=20, pady=20)
 # Add the locker photo
 locker_img = PhotoImage(file="a_lock_exsml.png")
 # create a canvas object from canvas class.
-canvas = Canvas(width=200, height=300)
+canvas = Canvas(width=200, height=291)
 # add the locker_img to canvas object.
-canvas.create_image(90, 150, image=locker_img)
+canvas.create_image(80, 140, image=locker_img)
 canvas.grid(column=1, row=0)
 # create a website label
 web_label = Label(text="Website :")
@@ -89,6 +91,6 @@ password_entry.grid(column=1, row=3, sticky=W)
 generate_pass = Button(text="Generate", command=generate_password)
 generate_pass.grid(column=1, row=3, pady=5, sticky=E)
 # create add button
-add_button = Button(text="add", width=15, command=save_user_registration)
-add_button.grid(column=1, row=4, pady=15)
+add_button = Button(text="add", width=10, command=save_user_registration)
+add_button.grid(column=1, row=4, pady=15, padx=50)
 window.mainloop()
