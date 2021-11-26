@@ -1,5 +1,5 @@
 from tkinter import *
-import random
+from random import choices
 
 # ------------------Generate Password Function------------------#
 # ---------------PASSWORD CONSTANTTs-------------------#
@@ -18,6 +18,24 @@ LOWERCASE_LIST = list(LOWERCASE.split(" "))
 NUMBER_LIST = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 SYMBOLS = '''~`!@#$%^&*()_-+={[}]|\:;"'<,>.?/'''
 SYMBOLS_LIST = list(SYMBOLS)
+pass_generated = None
+
+
+# ------------------Generate function--------------#
+def generate_pass():
+    global pass_generated
+    upper_random_list = choices(UPPERCASE_LIST, k=4)
+    lower_random_list = choices(LOWERCASE_LIST, k=4)
+    numbers_random_list = choices(NUMBER_LIST, k=4)
+    symbols_random_list = choices(SYMBOLS_LIST, k=4)
+    mixed_pass = upper_random_list + lower_random_list + numbers_random_list + symbols_random_list
+    pass_generated_list = choices(mixed_pass, k=16)
+    pass_generated = "".join(map(str, pass_generated_list))
+
+
+
+generate_pass()
+print(pass_generated)
 
 # ------------------ Password Manager GUI ---------------------#
 window = Tk()
