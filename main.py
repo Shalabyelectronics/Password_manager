@@ -1,10 +1,17 @@
 from tkinter import *
+from tkinter import messagebox
 from random import choices
+import os
+
+
+# -----------------open data file function ---------------------#
+def data_file():
+    os.startfile("data.txt")
 
 
 # ------------------Generate Password Function------------------#
 # ---------------PASSWORD CONSTANTTs-------------------#
-from tkinter import messagebox
+
 
 '''
 Passwords should contain three of the four character types:
@@ -80,17 +87,20 @@ email_label = Label(text="E-mail :")
 email_label.grid(column=0, row=2, sticky=W)
 # create an e-mail entry
 email_entry = Entry(width=35)
-email_entry.grid(column=1, row=2, sticky=W)
+email_entry.grid(column=1, row=2, pady=5, sticky=W)
 # create a password label
 password_label = Label(text="Password :")
 password_label.grid(column=0, row=3, sticky=W)
 # create a password entry
 password_entry = Entry(width=25)
-password_entry.grid(column=1, row=3, sticky=W)
+password_entry.grid(column=1, row=3, pady=5, sticky=W)
 # create a generate password button.
 generate_pass = Button(text="Generate", command=generate_password)
 generate_pass.grid(column=1, row=3, pady=5, sticky=E)
 # create add button
-add_button = Button(text="add", width=10, command=save_user_registration)
-add_button.grid(column=1, row=4, pady=15, padx=50)
+add_button = Button(text="add", width=30, command=save_user_registration)
+add_button.grid(column=1, row=4, pady=15, sticky=W)
+# create open data file button
+open_data_file_button = Button(text="Open Data File", width=30, command=data_file)
+open_data_file_button.grid(column=1, row=5, pady=5, sticky=W)
 window.mainloop()
