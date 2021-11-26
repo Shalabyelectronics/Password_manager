@@ -22,7 +22,7 @@ pass_generated = None
 
 
 # ------------------Generate function--------------#
-def generate_pass():
+def generate_password():
     global pass_generated
     upper_random_list = choices(UPPERCASE_LIST, k=4)
     lower_random_list = choices(LOWERCASE_LIST, k=4)
@@ -31,11 +31,12 @@ def generate_pass():
     mixed_pass = upper_random_list + lower_random_list + numbers_random_list + symbols_random_list
     pass_generated_list = choices(mixed_pass, k=16)
     pass_generated = "".join(map(str, pass_generated_list))
+    if len(password_entry.get()) == 0:
+        password_entry.insert(END, pass_generated)
+    else:
+        password_entry.delete(0, last=16)
+        password_entry.insert(END, pass_generated)
 
-
-
-generate_pass()
-print(pass_generated)
 
 # ------------------ Password Manager GUI ---------------------#
 window = Tk()
@@ -67,7 +68,7 @@ password_label.grid(column=0, row=3, sticky=W)
 password_entry = Entry(width=25)
 password_entry.grid(column=1, row=3, sticky=W)
 # create a generate password button.
-generate_pass = Button(text="Generate")
+generate_pass = Button(text="Generate", command=generate_password)
 generate_pass.grid(column=1, row=3, pady=5, sticky=E)
 # create add button
 add_button = Button(text="add", width=15)
