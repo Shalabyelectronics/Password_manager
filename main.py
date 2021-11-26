@@ -3,6 +3,8 @@ from random import choices
 
 # ------------------Generate Password Function------------------#
 # ---------------PASSWORD CONSTANTTs-------------------#
+from tkinter import messagebox
+
 '''
 Passwords should contain three of the four character types:
 
@@ -21,12 +23,23 @@ SYMBOLS_LIST = list(SYMBOLS)
 pass_generated = None
 
 
+# ----------------ٍSave Data to text file-----------#
+def save_user_registration():
+    if len(web_entry.get()) == 0 or len(email_entry.get()) == 0 or len(password_entry.get()) == 0:
+        fill_all_gaps = messagebox.showwarning(title="Attention", message="Please do not leave any gaps empty!!")
+    elif len(web_entry.get()) != 0 and len(email_entry.get()) != 0 and len(password_entry.get()) != 0:
+        ask_user = messagebox.askyesno(title="Conformation", message="Do you want to save current registration data?")
+        if ask_user:
+            with open("data.txt", mode="w") as user_registration:
+                user_registration.write(f"{web_entry.get()}| {email_entry.get()} | {password_entry.get()}")
+
+
 # ------------------Generate function--------------#
 def generate_password():
     global pass_generated
     upper_random_list = choices(UPPERCASE_LIST, k=4)
     lower_random_list = choices(LOWERCASE_LIST, k=4)
-    numbers_random_list = choices(NUMBER_LIST, k=4)
+    numbers_random_list = [str(n) for n in choices(NUMBER_LIST, k=4)]
     symbols_random_list = choices(SYMBOLS_LIST, k=4)
     mixed_pass = upper_random_list + lower_random_list + numbers_random_list + symbols_random_list
     pass_generated_list = choices(mixed_pass, k=16)
@@ -71,6 +84,6 @@ password_entry.grid(column=1, row=3, sticky=W)
 generate_pass = Button(text="Generate", command=generate_password)
 generate_pass.grid(column=1, row=3, pady=5, sticky=E)
 # create add button
-add_button = Button(text="add", width=15)
+add_button = Button(text="add", width=15, command=save_user_registration)
 add_button.grid(column=1, row=4, pady=15)
 window.mainloop()
