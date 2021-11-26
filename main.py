@@ -1,4 +1,23 @@
 from tkinter import *
+import random
+
+# ------------------Generate Password Function------------------#
+# ---------------PASSWORD CONSTANTTs-------------------#
+'''
+Passwords should contain three of the four character types:
+
+Uppercase letters: A-Z
+Lowercase letters: a-z
+Numbers: 0-9
+Symbols: ~`!@#$%^&*()_-+={[}]|\:;"'<,>.?/
+'''
+UPPERCASE = "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z"
+LOWERCASE = "a b c d e f g h i j k l m n o p q r s t u v w x y z"
+UPPERCASE_LIST = list(UPPERCASE.split(" "))
+LOWERCASE_LIST = list(LOWERCASE.split(" "))
+NUMBER_LIST = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+SYMBOLS = '''~`!@#$%^&*()_-+={[}]|\:;"'<,>.?/'''
+SYMBOLS_LIST = list(SYMBOLS)
 
 # ------------------ Password Manager GUI ---------------------#
 window = Tk()
