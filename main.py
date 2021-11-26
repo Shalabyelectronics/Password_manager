@@ -1,5 +1,6 @@
 from tkinter import *
 from random import choices
+import os
 
 # ------------------Generate Password Function------------------#
 # ---------------PASSWORD CONSTANTTs-------------------#
@@ -30,7 +31,11 @@ def save_user_registration():
     elif len(web_entry.get()) != 0 and len(email_entry.get()) != 0 and len(password_entry.get()) != 0:
         ask_user = messagebox.askyesno(title="Conformation", message="Do you want to save current registration data?")
         if ask_user:
-            with open("data.txt", mode="w") as user_registration:
+            with open("data.txt", mode="a+") as user_registration:
+                user_registration.seek(0)
+                data = user_registration.read(100)
+                if len(data) > 0:
+                    user_registration.write("\n")
                 user_registration.write(f"{web_entry.get()}| {email_entry.get()} | {password_entry.get()}")
 
 
