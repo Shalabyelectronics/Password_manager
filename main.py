@@ -48,7 +48,10 @@ def save_user_registration():
                 data = user_registration.read(100)
                 if len(data) > 0:
                     user_registration.write("\n")
-                user_registration.write(f"{web_entry.get()}| {email_entry.get()} | {password_entry.get()}")
+                user_registration.write(f"{web_entry.get()} | {email_entry.get()} | {password_entry.get()}")
+    web_entry.delete(0, last=100)
+    email_entry.delete(0, last=100)
+    password_entry.delete(0, last=100)
 
 
 # ------------------Generate function--------------#
@@ -77,13 +80,14 @@ locker_img = PhotoImage(file="a_lock_exsml.png")
 # create a canvas object from canvas class.
 canvas = Canvas(width=200, height=291)
 # add the locker_img to canvas object.
-canvas.create_image(90, 140, image=locker_img)
+canvas.create_image(100, 140, image=locker_img)
 canvas.grid(column=1, row=0)
 # create a website label
 web_label = Label(text="Website :")
 web_label.grid(column=0, row=1, sticky=W)
 # create a website entry
 web_entry = Entry(width=46)
+web_entry.focus()
 web_entry.grid(column=1, row=1, columnspan=2)
 # create a email_label
 email_label = Label(text="E-mail/Username :")
@@ -96,10 +100,10 @@ password_label = Label(text="Password :")
 password_label.grid(column=0, row=3, sticky=W)
 # create a password entry
 password_entry = Entry(width=32)
-password_entry.grid(column=1, row=3,  columnspan=1)
+password_entry.grid(column=1, row=3)
 # create a generate password button.
 generate_pass = Button(text="Generate", width=10, command=generate_password)
-generate_pass.grid(column=2, row=3, columnspan=1)
+generate_pass.grid(column=2, row=3)
 # create add button
 add_button = Button(text="add", width=40, command=save_user_registration)
 add_button.grid(column=1, row=4, pady=15, columnspan=2)
