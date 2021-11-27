@@ -11,6 +11,7 @@ def data_file():
     else:
         messagebox.showwarning(title="Attention", message="You Do not have any data file yet!!")
 
+
 # ------------------Generate Password Function------------------#
 # ---------------PASSWORD CONSTANTTs-------------------#
 
@@ -82,27 +83,27 @@ canvas.grid(column=1, row=0)
 web_label = Label(text="Website :")
 web_label.grid(column=0, row=1, sticky=W)
 # create a website entry
-web_entry = Entry(width=35)
-web_entry.grid(column=1, row=1, sticky=W)
+web_entry = Entry(width=46)
+web_entry.grid(column=1, row=1, columnspan=2)
 # create a email_label
 email_label = Label(text="E-mail/Username :")
 email_label.grid(column=0, row=2, sticky=W)
 # create an e-mail entry
-email_entry = Entry(width=35)
-email_entry.grid(column=1, row=2, pady=5, sticky=W)
+email_entry = Entry(width=46)
+email_entry.grid(column=1, row=2, pady=5, columnspan=2)
 # create a password label
 password_label = Label(text="Password :")
 password_label.grid(column=0, row=3, sticky=W)
 # create a password entry
-password_entry = Entry(width=25)
-password_entry.grid(column=1, row=3, pady=5, sticky=W)
+password_entry = Entry(width=32)
+password_entry.grid(column=1, row=3,  columnspan=1)
 # create a generate password button.
-generate_pass = Button(text="Generate", command=generate_password)
-generate_pass.grid(column=1, row=3, pady=5, sticky=E)
+generate_pass = Button(text="Generate", width=10, command=generate_password)
+generate_pass.grid(column=2, row=3, columnspan=1)
 # create add button
-add_button = Button(text="add", width=30, command=save_user_registration)
-add_button.grid(column=1, row=4, pady=15, sticky=W)
+add_button = Button(text="add", width=40, command=save_user_registration)
+add_button.grid(column=1, row=4, pady=15, columnspan=2)
 # create open data file button
-open_data_file_button = Button(text="Open Data File", width=30, command=data_file)
-open_data_file_button.grid(column=1, row=5, pady=5, sticky=W)
+open_data_file_button = Button(text="Open Data File", width=40, command=data_file)
+open_data_file_button.grid(column=1, row=5, pady=5, columnspan=2)
 window.mainloop()
