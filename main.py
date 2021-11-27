@@ -6,8 +6,10 @@ import os
 
 # -----------------open data file function ---------------------#
 def data_file():
-    os.startfile("data.txt")
-
+    if os.path.isfile("data.txt"):
+        os.startfile("data.txt")
+    else:
+        messagebox.showwarning(title="Attention", message="You Do not have any data file yet!!")
 
 # ------------------Generate Password Function------------------#
 # ---------------PASSWORD CONSTANTTs-------------------#
@@ -74,7 +76,7 @@ locker_img = PhotoImage(file="a_lock_exsml.png")
 # create a canvas object from canvas class.
 canvas = Canvas(width=200, height=291)
 # add the locker_img to canvas object.
-canvas.create_image(80, 140, image=locker_img)
+canvas.create_image(90, 140, image=locker_img)
 canvas.grid(column=1, row=0)
 # create a website label
 web_label = Label(text="Website :")
@@ -83,7 +85,7 @@ web_label.grid(column=0, row=1, sticky=W)
 web_entry = Entry(width=35)
 web_entry.grid(column=1, row=1, sticky=W)
 # create a email_label
-email_label = Label(text="E-mail :")
+email_label = Label(text="E-mail/Username :")
 email_label.grid(column=0, row=2, sticky=W)
 # create an e-mail entry
 email_entry = Entry(width=35)
