@@ -41,7 +41,10 @@ def save_user_registration():
     if len(web_entry.get()) == 0 or len(email_entry.get()) == 0 or len(password_entry.get()) == 0:
         messagebox.showwarning(title="Attention", message="Please do not leave any gaps empty!!")
     elif len(web_entry.get()) != 0 and len(email_entry.get()) != 0 and len(password_entry.get()) != 0:
-        ask_user = messagebox.askyesno(title="Conformation", message="Do you want to save current registration data?")
+        ask_user = messagebox.askyesno(title="Conformation", message=f"Your data you entered for : {web_entry.get()}\n"
+                                                                     f"Email/Username: {email_entry.get()}\n"
+                                                                     f"Password: {password_entry.get()}\n"
+                                                                     f"Is it ok to save it?")
         if ask_user:
             with open("data.txt", mode="a+") as user_registration:
                 user_registration.seek(0)
@@ -49,9 +52,9 @@ def save_user_registration():
                 if len(data) > 0:
                     user_registration.write("\n")
                 user_registration.write(f"{web_entry.get()} | {email_entry.get()} | {password_entry.get()}")
-    web_entry.delete(0, last=100)
-    email_entry.delete(0, last=100)
-    password_entry.delete(0, last=100)
+    web_entry.delete(0, END)
+    email_entry.delete(0, END)
+    password_entry.delete(0, END)
 
 
 # ------------------Generate function--------------#
@@ -67,7 +70,7 @@ def generate_password():
     if len(password_entry.get()) == 0:
         password_entry.insert(END, pass_generated)
     else:
-        password_entry.delete(0, last=16)
+        password_entry.delete(0, END)
         password_entry.insert(END, pass_generated)
 
 
