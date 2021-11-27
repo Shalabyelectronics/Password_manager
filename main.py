@@ -1,7 +1,8 @@
 from tkinter import *
 from tkinter import messagebox
-from random import choices
+from random import choices, shuffle
 import os
+import pyperclip
 
 
 # -----------------open data file function ---------------------#
@@ -10,30 +11,6 @@ def data_file():
         os.startfile("data.txt")
     else:
         messagebox.showwarning(title="Attention", message="You Do not have any data file yet!!")
-
-
-# ------------------Generate Password Function------------------#
-# ---------------PASSWORD CONSTANTTs-------------------#
-
-
-'''
-Passwords should contain three of the four character types:
-
-Uppercase letters: A-Z
-Lowercase letters: a-z
-Numbers: 0-9
-Symbols: ~`!@#$%^&*()_-+={[}]|:;"'<,>.?/
-'''
-UPPERCASE = "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z"
-LOWERCASE = "a b c d e f g h i j k l m n o p q r s t u v w x y z"
-UPPERCASE_LIST = list(UPPERCASE.split(" "))
-LOWERCASE_LIST = list(LOWERCASE.split(" "))
-NUMBER_LIST = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-SYMBOLS = '''
-~`!@#$%^&*()_-+={[}]|:;"'<,>.?/
-'''
-SYMBOLS_LIST = list(SYMBOLS)
-pass_generated = None
 
 
 # ----------------ٍSave Data to text file-----------#
@@ -58,17 +35,40 @@ def save_user_registration():
 
 
 # ------------------Generate function--------------#
+# ------------------Generate Password Function------------------#
+# ---------------PASSWORD CONSTANTTs-------------------#
+
+
+'''
+Passwords should contain three of the four character types:
+
+Uppercase letters: A-Z
+Lowercase letters: a-z
+Numbers: 0-9
+Symbols: ~`!@#$%^&*()_-+={[}]|:;"'<,>.?/
+'''
+UPPERCASE = "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z"
+LOWERCASE = "a b c d e f g h i j k l m n o p q r s t u v w x y z"
+UPPERCASE_LIST = list(UPPERCASE.split(" "))
+LOWERCASE_LIST = list(LOWERCASE.split(" "))
+NUMBER_LIST = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+SYMBOLS = '''
+~`!@#$%^&*()_-+={[}]|:;"'<,>.?/
+'''
+SYMBOLS_LIST = list(SYMBOLS)
+
+
 def generate_password():
-    global pass_generated
     upper_random_list = choices(UPPERCASE_LIST, k=4)
     lower_random_list = choices(LOWERCASE_LIST, k=4)
     numbers_random_list = [str(n) for n in choices(NUMBER_LIST, k=4)]
     symbols_random_list = choices(SYMBOLS_LIST, k=4)
     mixed_pass = upper_random_list + lower_random_list + numbers_random_list + symbols_random_list
-    pass_generated_list = choices(mixed_pass, k=16)
-    pass_generated = "".join(map(str, pass_generated_list))
+    shuffle(mixed_pass)
+    pass_generated = "".join(map(str, mixed_pass))
     if len(password_entry.get()) == 0:
-        password_entry.insert(END, pass_generated)
+        password_entry.insert(0, pass_generated)
+        pyperclip.copy(password_entry.get())
     else:
         password_entry.delete(0, END)
         password_entry.insert(END, pass_generated)
