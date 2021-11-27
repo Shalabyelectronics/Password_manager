@@ -39,8 +39,8 @@ pass_generated = None
 # ----------------ٍSave Data to text file-----------#
 def save_user_registration():
     if len(web_entry.get()) == 0 or len(email_entry.get()) == 0 or len(password_entry.get()) == 0:
-        messagebox.showwarning(title="Attention", message="Please do not leave any gaps empty!!")
-    elif len(web_entry.get()) != 0 and len(email_entry.get()) != 0 and len(password_entry.get()) != 0:
+        messagebox.showwarning(title="Attention", message="Please do not leave any fields empty!!")
+    else:
         ask_user = messagebox.askyesno(title="Conformation", message=f"Your data you entered for : {web_entry.get()}\n"
                                                                      f"Email/Username: {email_entry.get()}\n"
                                                                      f"Password: {password_entry.get()}\n"
@@ -48,13 +48,13 @@ def save_user_registration():
         if ask_user:
             with open("data.txt", mode="a+") as user_registration:
                 user_registration.seek(0)
-                data = user_registration.read(100)
+                data = user_registration.read()
                 if len(data) > 0:
                     user_registration.write("\n")
                 user_registration.write(f"{web_entry.get()} | {email_entry.get()} | {password_entry.get()}")
-    web_entry.delete(0, END)
-    email_entry.delete(0, END)
-    password_entry.delete(0, END)
+                web_entry.delete(0, END)
+                email_entry.delete(0, END)
+                password_entry.delete(0, END)
 
 
 # ------------------Generate function--------------#
