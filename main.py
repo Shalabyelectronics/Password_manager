@@ -23,12 +23,8 @@ def save_user_registration():
                                                                      f"Password: {password_entry.get()}\n"
                                                                      f"Is it ok to save it?")
         if ask_user:
-            with open("data.txt", mode="a+") as user_registration:
-                user_registration.seek(0)
-                data = user_registration.read()
-                if len(data) > 0:
-                    user_registration.write("\n")
-                user_registration.write(f"{web_entry.get()} | {email_entry.get()} | {password_entry.get()}")
+            with open("data.txt", mode="a+", encoding = 'utf-8') as user_registration:
+                user_registration.write(f"{web_entry.get()} | {email_entry.get()} | {password_entry.get()}\n")
                 web_entry.delete(0, END)
                 email_entry.delete(0, END)
                 password_entry.delete(0, END)
