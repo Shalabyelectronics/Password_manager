@@ -3,20 +3,25 @@ from tkinter import messagebox
 from random import choices, shuffle
 import pyperclip
 import json
+import pandas
 
 
 # ---------------Search Function------------------#
 def search_data():
     website = web_entry.get().lower()
-    with open("data.json", "r") as data:
-        data_file = json.load(data)
-    if website in data_file:
-        password = data_file[website]["Password"]
-        email_username = data_file[website]["E-mail"]
-        messagebox.showinfo(title="Login Data Founded", message=f"E-mail/Username : {email_username}\n"
-                                                                f"Password : {password}")
+    try:
+        with open("data.json", "r") as data:
+            data_file = json.load(data)
+    except FileNotFoundError:
+        messagebox.showwarning(title="Attention", message=f"There is no data file created yet.")
     else:
-        messagebox.showwarning(title="Attention", message=f"There is no data related to {website.title()}")
+        if website in data_file:
+            password = data_file[website]["Password"]
+            email_username = data_file[website]["E-mail"]
+            messagebox.showinfo(title="Login Data Founded", message=f"E-mail/Username : {email_username}\n"
+                                                                    f"Password : {password}")
+        else:
+            messagebox.showwarning(title="Attention", message=f"There is no data related to {website.title()}")
 
 
 # ---------------Add Data Function----------------#
