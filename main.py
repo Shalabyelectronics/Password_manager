@@ -1,16 +1,45 @@
 from tkinter import *
 from tkinter import messagebox
 from random import choices, shuffle
-import os
 import pyperclip
+import json
 
 
-# -----------------open data file function ---------------------#
-def data_file():
-    if os.path.isfile("data.txt"):
-        os.startfile("data.txt")
+# ---------------Add Data Function----------------#
+def add_data(user_data):
+    try:
+        data = open("data.json", mode="r")
+    except FileNotFoundError:
+        data = open("data.json", mode="w")
+        data.close()
+        add_data(user_data)
     else:
-        messagebox.showwarning(title="Attention", message="You Do not have any data file yet!!")
+        try:
+            read_data_file = json.load(data)
+        except:
+            data.close()
+            data = open("data.json", mode="w")
+            json.dump(user_data, data, indent=4)
+            data.close()
+        else:
+            read_data_file.update(user_data)
+            data.close()
+            data = open("data.json", mode="w")
+            json.dump(read_data_file, data, indent=4)
+            data.close()
+
+
+        # # read_data_file.update(user_data)
+        # print(read_data_file)
+
+        # read_data_file.update(user_data)
+        # data.close()
+        # data = open("data.json", mode="w")
+        # json.dump(read_data_file, data, indent=4)
+        # data.close()
+        # web_entry.delete(0, END)
+        # email_entry.delete(0, END)
+        # password_entry.delete(0, END)
 
 
 # ----------------ٍSave Data to text file-----------#
@@ -18,16 +47,31 @@ def save_user_registration():
     if len(web_entry.get()) == 0 or len(email_entry.get()) == 0 or len(password_entry.get()) == 0:
         messagebox.showwarning(title="Attention", message="Please do not leave any fields empty!!")
     else:
+        user_data = {
+            web_entry.get():
+                {
+                    "E-mail": email_entry.get(),
+                    "Password": password_entry.get()
+                }
+        }
         ask_user = messagebox.askyesno(title="Conformation", message=f"Your data you entered for : {web_entry.get()}\n"
                                                                      f"Email/Username: {email_entry.get()}\n"
                                                                      f"Password: {password_entry.get()}\n"
                                                                      f"Is it ok to save it?")
         if ask_user:
-            with open("data.txt", mode="a+", encoding = 'utf-8') as user_registration:
-                user_registration.write(f"{web_entry.get()} | {email_entry.get()} | {password_entry.get()}\n")
-                web_entry.delete(0, END)
-                email_entry.delete(0, END)
-                password_entry.delete(0, END)
+            add_data(user_data)
+
+            #         data = json.load(user_registration)
+            #         data.update(user_data)
+            #     with open("data.json", mode="w") as user_registration:
+            #         json.dump(data, user_registration, indent=4)
+            # except FileNotFoundError:
+            #     with open("data.json", mode="w") as user_registration:
+            #         json.dump(user_data, user_registration, indent=4)
+            # else:
+            #     web_entry.delete(0, END)
+            #     email_entry.delete(0, END)
+            #     password_entry.delete(0, END)
 
 
 # ------------------Generate function--------------#
@@ -48,9 +92,7 @@ LOWERCASE = "a b c d e f g h i j k l m n o p q r s t u v w x y z"
 UPPERCASE_LIST = list(UPPERCASE.split(" "))
 LOWERCASE_LIST = list(LOWERCASE.split(" "))
 NUMBER_LIST = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-SYMBOLS = '''
-~`!@#$%^&*()_-+={[}]|:;"'<,>.?/
-'''
+SYMBOLS = "!@#$%&*?/"
 SYMBOLS_LIST = list(SYMBOLS)
 
 
@@ -106,7 +148,4 @@ generate_pass.grid(column=2, row=3)
 # create add button
 add_button = Button(text="add", width=40, command=save_user_registration)
 add_button.grid(column=1, row=4, pady=15, columnspan=2)
-# create open data file button
-open_data_file_button = Button(text="Open Data File", width=40, command=data_file)
-open_data_file_button.grid(column=1, row=5, pady=5, columnspan=2)
 window.mainloop()
