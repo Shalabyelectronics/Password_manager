@@ -23,7 +23,6 @@ and save all data to a json data file that created when a program start for firs
 * Add default e-mail or username to make the process much easy and smoother.
 * Do some improvement in the GUI like add colors and changing fonts.
 
-## Resources:
 
 
 
