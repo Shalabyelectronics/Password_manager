@@ -5,12 +5,27 @@ import pyperclip
 import json
 
 
+# ---------------Search Function------------------#
+def search_data():
+    website = web_entry.get().lower()
+    with open("data.json", "r") as data:
+        data_file = json.load(data)
+    if website in data_file:
+        password = data_file[website]["Password"]
+        email_username = data_file[website]["E-mail"]
+        messagebox.showinfo(title="Login Data Founded", message=f"E-mail/Username : {email_username}\n"
+                                                                f"Password : {password}")
+    else:
+        messagebox.showwarning(title="Attention", message=f"There is no data related to {website.title()}")
+
+
 # ---------------Add Data Function----------------#
 def dump_data(user_data):
     with open("data.json", "w") as data:
         json.dump(user_data, data, indent=4)
 
 
+# ---------------Save data Function---------------#
 def save_data(user_data):
     try:
         with open("data.json", "r") as data:
@@ -28,7 +43,7 @@ def save_data(user_data):
 
 # ----------------ٍSave Data to text file-----------#
 def save_user_registration():
-    if len(web_entry.get()) == 0 or len(email_entry.get()) == 0 or len(password_entry.get()) == 0:
+    if len(web_entry.get().lower()) == 0 or len(email_entry.get()) == 0 or len(password_entry.get()) == 0:
         messagebox.showwarning(title="Attention", message="Please do not leave any fields empty!!")
     else:
         user_data = {
@@ -103,7 +118,7 @@ web_entry = Entry(width=32)
 web_entry.focus()
 web_entry.grid(column=1, row=1)
 # create search button
-search_button = Button(text="Search", width=10)
+search_button = Button(text="Search", width=10, command=search_data)
 search_button.grid(column=2, row=1)
 # create a email_label
 email_label = Label(text="E-mail/Username :")
