@@ -6,40 +6,24 @@ import json
 
 
 # ---------------Add Data Function----------------#
-def add_data(user_data):
+def dump_data(user_data):
+    with open("data.json", "w") as data:
+        json.dump(user_data, data, indent=4)
+
+
+def save_data(user_data):
     try:
-        data = open("data.json", mode="r")
+        with open("data.json", "r") as data:
+            data_file = json.load(data)
     except FileNotFoundError:
-        data = open("data.json", mode="w")
-        data.close()
-        add_data(user_data)
+        dump_data(user_data)
     else:
-        try:
-            read_data_file = json.load(data)
-        except:
-            data.close()
-            data = open("data.json", mode="w")
-            json.dump(user_data, data, indent=4)
-            data.close()
-        else:
-            read_data_file.update(user_data)
-            data.close()
-            data = open("data.json", mode="w")
-            json.dump(read_data_file, data, indent=4)
-            data.close()
-
-
-        # # read_data_file.update(user_data)
-        # print(read_data_file)
-
-        # read_data_file.update(user_data)
-        # data.close()
-        # data = open("data.json", mode="w")
-        # json.dump(read_data_file, data, indent=4)
-        # data.close()
-        # web_entry.delete(0, END)
-        # email_entry.delete(0, END)
-        # password_entry.delete(0, END)
+        data_file.update(user_data)
+        dump_data(data_file)
+    finally:
+        web_entry.delete(0, END)
+        email_entry.delete(0, END)
+        password_entry.delete(0, END)
 
 
 # ----------------ٍSave Data to text file-----------#
@@ -59,19 +43,7 @@ def save_user_registration():
                                                                      f"Password: {password_entry.get()}\n"
                                                                      f"Is it ok to save it?")
         if ask_user:
-            add_data(user_data)
-
-            #         data = json.load(user_registration)
-            #         data.update(user_data)
-            #     with open("data.json", mode="w") as user_registration:
-            #         json.dump(data, user_registration, indent=4)
-            # except FileNotFoundError:
-            #     with open("data.json", mode="w") as user_registration:
-            #         json.dump(user_data, user_registration, indent=4)
-            # else:
-            #     web_entry.delete(0, END)
-            #     email_entry.delete(0, END)
-            #     password_entry.delete(0, END)
+            save_data(user_data)
 
 
 # ------------------Generate function--------------#
