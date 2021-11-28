@@ -99,9 +99,12 @@ canvas.grid(column=1, row=0)
 web_label = Label(text="Website :")
 web_label.grid(column=0, row=1, sticky=W)
 # create a website entry
-web_entry = Entry(width=46)
+web_entry = Entry(width=32)
 web_entry.focus()
-web_entry.grid(column=1, row=1, columnspan=2)
+web_entry.grid(column=1, row=1)
+# create search button
+search_button = Button(text="Search", width=10)
+search_button.grid(column=2, row=1)
 # create a email_label
 email_label = Label(text="E-mail/Username :")
 email_label.grid(column=0, row=2, sticky=W)
